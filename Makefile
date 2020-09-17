@@ -8,7 +8,7 @@ ARTIFACTS = main rex.mod $(OBJECTS)
 .SUFFIXES: .f95 .mod
 
 run: main
-	mpirun -np 2 ./main
+	mpirun -np 3 ./main
 
 clean:
 	rm -f $(ARTIFACTS)
