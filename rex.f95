@@ -195,9 +195,9 @@ contains
 
         val = a + b + x
         x = x + 1
-        a = xor(b, rshift(b, 11))
-        b = c + lshift(c, 3)
-        c = val + or(lshift(c, 24), rshift(c, 64 - 24))
+        a = xor(b, ishft(b, 11))
+        b = c + ishft(c, 3)
+        c = val + or(ishft(c, 24), ishft(c, 24 - 64))
 
         sfc_state = (/ a, b, c, x /)
 
@@ -209,8 +209,6 @@ contains
         integer(8) :: bits
 
         call rex_rand_bits(bits)
-        bits = lshift(bits, 1)
-        bits = rshift(bits, 1)
         val = 0.5 + real(bits) / (2.0 ** 64)
 
         return
