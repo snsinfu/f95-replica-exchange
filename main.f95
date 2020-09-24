@@ -3,7 +3,7 @@ program main
 
     implicit none
 
-    real :: temps(5) = (/ 0.1, 0.3, 0.8, 1.2, 1.7 /)
+    real :: temps(5) = (/ 1.0, 1.2, 1.4, 1.7, 2.0 /)
     integer(8) :: seed
     integer :: rank
     integer :: replica_id
@@ -43,6 +43,7 @@ program main
             call rex_id(replica_id)
         end if
 
+        ! BAOAB Langevin integrator
         damping = exp(-friction * dt)
         sigma = sqrt(kT * (1 - exp(-2 * friction * dt)))
         call random_normal(R)
@@ -65,13 +66,13 @@ contains
         real, intent(in) :: x
         real, intent(in) :: v
 
-        system_energy = 0.5 * (x**2 + sin(5 * x)) + v * v / 2
+        system_energy = 0.5 * (x**2 + 2 * sin(5 * x)) + v * v / 2
     end function
 
     real function system_force(x)
         real, intent(in) :: x
 
-        system_force = 0.5 * (-2 * x - 5 * cos(5 * x))
+        system_force = 0.5 * (-2 * x - 10 * cos(5 * x))
     end function
 
     subroutine random_normal(z)
